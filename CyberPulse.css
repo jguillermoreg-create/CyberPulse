@@ -1,0 +1,284 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+*:not(dialog) {
+  margin: 0;
+}
+
+.michroma-regular {
+  font-family: "Michroma", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+
+background-image: url(Imagenes/2454628.png);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 5rem;
+  font-family: "Michroma", Helvetica;
+  color: #ffffff;
+  text-shadow:
+        0 0 5px #00e5ffb2,
+        0 0 15px #00e5ffb3,
+        0 0 30px #00e5ff75;
+  animation: neon 5s infinite alternate;
+  animation: grow .5s immediate;
+}
+
+@keyframes neon{
+    from{
+        text-shadow:
+            0 0 5px #00e5ff,
+            0 0 15px #00e5ff,
+            0 0 30px #00e5ff;
+    }
+
+    to{
+        text-shadow:
+            0 0 15px #00ff88,
+            0 0 30px #00ff88,
+            0 0 60px #00ff88;
+    }
+
+}
+
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+p {
+  text-wrap: balance;
+  text-align: justify;
+  hyphens: auto;
+  color: white;
+  font-family: "Y2K Brutalism Typeface", Helvetica;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+h2{
+  text-align: center;
+  color: white;
+  font-family: "Michroma", Helvetica;
+  padding: 0px 0px 15px 0px;
+}
+
+input{
+  text-wrap: balance;
+  max-width: 75%
+}
+
+aside{
+  background-color: #20638C;
+}
+
+#root, #__next {
+  isolation: isolate;
+}
+#sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100vh;
+    background: #fc737300;
+    transition: transform 0.3s ease;
+    padding: 10px 0 0 0;
+    background-color: #015d966e;
+}
+
+#menu-btn{
+    display: flex;
+    flex-direction: right;
+    position: absolute;
+    right: 3%;
+  }
+
+.hidden{
+    transform: translateX(-85%);
+}
+/* .hovered{
+   transform: scale(1.5%);
+}
+ */
+h1.mainTitle{
+    font-family: "Michroma", Helvetica;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 5rem;
+    transition: font-size .3s ease;
+}
+
+.mainTitle:hover{
+
+    font-size: 5.5rem;
+    text-shadow:
+        0 0 8px #00e5ff,
+        0 0 20px #00e5ff,
+        0 0 35px #00e5ff;
+
+}
+
+p.pageDesc{
+    text-align: justify;
+    margin: 20px auto;
+    max-width: 600px;
+    color:#ffffff;
+    font-size: .80rem;
+    width: 80%;
+}
+
+ul#indice{
+    padding-top: 30px;
+    list-style: none;
+}
+
+li{
+    list-style: none;
+    margin: 10px 0;
+    font-family: "Y2K Brutalism Typeface", Helvetica;
+    font-size: 1.2rem;
+}
+
+a:link{
+    color: white;
+    text-decoration: none;
+}
+
+a:visited{
+    color: white;
+}
+
+a:hover{
+    color: #00e5ff;
+}
+
+a:active{
+    color: #00bcd4;
+    }
+
+#news-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+article h3{
+    font-family: "Michroma", Helvetica;
+    color: #4BBF94;
+    font-size: 1rem;
+}
+
+article p{
+    text-align: justify;
+    justify-content: center;
+    color: white;
+    font-family: "Y2K Brutalism Typeface", Helvetica;
+    max-width: 100%;
+    padding: 0px 0px 0px 0px;
+}
+
+article a{
+    color: #00ff44cb;
+    text-decoration: none;
+    font-family: "Michroma", Helvetica;
+    padding: 5px 0px 5px 0px;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+    max-height: 220px;
+    transition:
+        max-width .3s ease,
+        max-height .3s ease,
+        font-size .3s ease;
+    background-color: #20638c6e;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px 0;
+    max-width: 600px;
+    color: white;
+}
+
+.card:hover{
+    max-height: 260px;
+    font-size: 1.05rem;
+    max-width: 650px;
+}
+
+span.category.critical{
+    align-self: flex-end;
+    background-color: #ff0000;
+    color: #ffffff;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-family: "Y2K Brutalism Typeface", Helvetica;
+    font-size: 0.8rem;
+    font-style: bold;
+}
+
+span.category.medium{
+    align-self: flex-end;
+    background-color: #ffae00;
+    color: #ffffff;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-family: "Y2K Brutalism Typeface", Helvetica;
+    font-size: 0.8rem;
+    font-style: bold;
+    right: 3%;
+}
+
+span.category.low{
+    align-self: flex-end;
+    background-color: #42b500;
+    color: #ffffff;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-family: "Y2K Brutalism Typeface", Helvetica;
+    font-size: 0.8rem;
+    font-style: bold;
+    right: 3%;
+}
+
+.ctitle{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem;
+}
