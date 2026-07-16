@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 *, *::before, *::after {
+=======
+*,
+*::before,
+*::after {
+>>>>>>> a98658375c31c334e443bab668318fec492ef320
   box-sizing: border-box;
 }
 
@@ -19,8 +25,12 @@
 }
 
 body {
+<<<<<<< HEAD
 
 background-image: url(Imagenes/2454628.png);
+=======
+  background-image: url(Imagenes/2454628.png);
+>>>>>>> a98658375c31c334e443bab668318fec492ef320
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   background-size: cover;
@@ -35,6 +45,7 @@ h1 {
   font-family: "Michroma", Helvetica;
   color: #ffffff;
   text-shadow:
+<<<<<<< HEAD
         0 0 5px #00e5ffb2,
         0 0 15px #00e5ffb3,
         0 0 30px #00e5ff75;
@@ -61,15 +72,62 @@ h1 {
 
 
 img, picture, video, canvas, svg {
+=======
+    0 0 5px #00e5ffb2,
+    0 0 15px #00e5ffb3,
+    0 0 30px #00e5ff75;
+  animation: neon 5s infinite alternate;
+  animation: grow 0.5s immediate;
+}
+
+@keyframes neon {
+  from {
+    text-shadow:
+      0 0 5px #00e5ff,
+      0 0 15px #00e5ff,
+      0 0 30px #00e5ff;
+  }
+
+  to {
+    text-shadow:
+      0 0 15px #00ff88,
+      0 0 30px #00ff88,
+      0 0 60px #00ff88;
+  }
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+>>>>>>> a98658375c31c334e443bab668318fec492ef320
   display: block;
   max-width: 100%;
 }
 
+<<<<<<< HEAD
 input, button, textarea, select {
   font: inherit;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
+=======
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+>>>>>>> a98658375c31c334e443bab668318fec492ef320
   overflow-wrap: break-word;
   text-align: justify;
   text-justify: inter-word;
@@ -83,17 +141,31 @@ p {
   font-family: "Y2K Brutalism Typeface", Helvetica;
 }
 
+<<<<<<< HEAD
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
 h2{
+=======
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+h2 {
+>>>>>>> a98658375c31c334e443bab668318fec492ef320
   text-align: center;
   color: white;
   font-family: "Michroma", Helvetica;
   padding: 0px 0px 15px 0px;
 }
 
+<<<<<<< HEAD
 input{
   text-wrap: balance;
   max-width: 75%
@@ -127,11 +199,68 @@ aside{
 
 .hidden{
     transform: translateX(-85%);
+=======
+input {
+  text-wrap: balance;
+  max-width: 75%;
+}
+
+aside {
+  background-color: var(--background-color);
+}
+
+:root {
+  --background-color: #20638c;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: 100vh;
+  background: #fc737300;
+  transition: transform 0.5s ease;
+  padding: 10px 0 0 0;
+  background-color: #015d966e;
+}
+
+#menu-btn {
+  display: flex;
+  flex-direction: right;
+  position: absolute;
+  right: 3%;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+#menu-btn > svg {
+  width: 30px;
+  height: 30px;
+  color: white;
+  transition: transform 0.5s ease;
+}
+
+#sidebar.hidden svg {
+  color: #0c7985;
+  transform: rotate(180deg);
+}
+
+.hidden {
+  transform: translateX(-85%);
+>>>>>>> a98658375c31c334e443bab668318fec492ef320
 }
 /* .hovered{
    transform: scale(1.5%);
 }
  */
+<<<<<<< HEAD
 h1.mainTitle{
     font-family: "Michroma", Helvetica;
     text-align: center;
@@ -276,9 +405,165 @@ span.category.low{
 }
 
 .ctitle{
+=======
+h1.mainTitle {
+  font-family: "Michroma", Helvetica;
+  text-align: center;
+  margin-top: 50px;
+  font-size: 5rem;
+  transition: font-size 0.3s ease;
+}
+
+.mainTitle:hover {
+  font-size: 5.5rem;
+  text-shadow:
+    0 0 8px #00e5ff,
+    0 0 20px #00e5ff,
+    0 0 35px #00e5ff;
+}
+
+p.pageDesc {
+  text-align: justify;
+  margin: 20px auto;
+  max-width: 600px;
+  color: #ffffff;
+  font-size: 0.8rem;
+  width: 40%;
+}
+
+ul#indice {
+  padding-top: 30px;
+  list-style: none;
+}
+
+li {
+  list-style: none;
+  margin: 10px 0;
+  font-family: "Y2K Brutalism Typeface", Helvetica;
+  font-size: 1.2rem;
+}
+
+a:link {
+  color: white;
+  text-decoration: none;
+}
+
+a:visited {
+  color: white;
+}
+
+a:hover {
+  color: #00e5ff;
+}
+
+a:active {
+  color: #00bcd4;
+}
+
+#news-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  font-family: "Y2K Brutalism Typeface", Helvetica;
+}
+
+article h3 {
+  font-family: "Michroma", Helvetica;
+  color: #4bbf94;
+  font-size: 1rem;
+}
+
+article p {
+  text-align: justify;
+  color: white;
+  font-family: "Y2K Brutalism Typeface", Helvetica;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  -webkit-line-clamp: 3; /* Número máximo de líneas que quieres mostrar */
+  overflow: hidden;
+  max-height: 3rem; /* Ajusta según la altura de línea y el número de líneas */
+  line-height: 1.5em; /* Ajusta según la altura de línea */
+}
+
+article a {
+  color: #00ff44cb;
+  text-decoration: none;
+  font-family: "Michroma", Helvetica;
+  padding: 5px 0px 20px 0px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 700px;
+  max-height: 220px;
+  transition:
+    max-width 0.3s ease,
+    max-height 0.3s ease,
+    font-size 0.3s ease;
+  background-color: #20638c6e;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px 0;
+  max-width: 700px;
+  color: white;
+}
+
+.card:hover {
+  max-height: 260px;
+  /* font-size: 1.05rem; */
+  max-width: 750px;
+  box-shadow: 0 0 10px 5px #91e3bc80;
+}
+
+span.category.critical {
+  align-self: flex-end;
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 10px 10px;
+  border-radius: 5px;
+  font-family: "Y2K Brutalism Typeface", Helvetica;
+  font-size: 0.8rem;
+  font-style: bold;
+}
+
+span.category.medium {
+  align-self: flex-end;
+  background-color: #ffae00;
+  color: #ffffff;
+  padding: 10px 10px;
+  border-radius: 5px;
+  font-family: "Y2K Brutalism Typeface", Helvetica;
+  font-size: 0.8rem;
+  font-style: bold;
+  right: 3%;
+}
+
+span.category.low {
+  align-self: flex-end;
+  background-color: #42b500;
+  color: #ffffff;
+  padding: 10px 10px;
+  border-radius: 5px;
+  font-family: "Y2K Brutalism Typeface", Helvetica;
+  font-size: 0.8rem;
+  font-style: bold;
+  right: 3%;
+}
+
+.ctitle {
+>>>>>>> a98658375c31c334e443bab668318fec492ef320
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
   gap: 1rem;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a98658375c31c334e443bab668318fec492ef320
