@@ -11,9 +11,16 @@ const categoryclasses = {
 
 const logBtn = document.getElementById("logBtn");
 const logDoc = document.getElementById("logDoc");
-const overlay = document.getElementById("overlay")
+const overlay = document.getElementById("overlay");
+const visibleClass = document.getElementsByClassName("visible")
+const closeModal = document.getElementById("closeModal");
 logBtn.addEventListener("click", () => {
-  overlay.style.display = "flex";
+  
+  overlay.classList.add("visible")
+});
+
+closeModal.addEventListener("click", () => {
+  overlay.classList.remove("visible")
 });
 
 const apiKey = "9508d8ae-a290-4623-b124-d1b931f231d0"
