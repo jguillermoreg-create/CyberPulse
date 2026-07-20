@@ -1,15 +1,62 @@
 const menuBtn = document.getElementById("menu-btn");
 const sidebar = document.getElementById("sidebar");
 const body = document.getElementById("body");
+const particles = document.getElementById("particles");
 /* const title = document.getElementByClass("mainTitle"); */
 const categoryclasses = {
   critical: "critical",
   medium: "medium",
   low: "low",
 };
+
+const logBtn = document.getElementById("logBtn");
+const logDoc = document.getElementById("logDoc");
+const overlay = document.getElementById("overlay")
+logBtn.addEventListener("click", () => {
+  overlay.style.display = "flex";
+});
+
+const apiKey = "9508d8ae-a290-4623-b124-d1b931f231d0"
+
 menuBtn.addEventListener("click", () => {
   sidebar.classList.toggle("hidden");
 });
+
+//fetch("https://services.nvd.nist.gov/rest/json/cves/2.0?resultsPerPage=5") 
+//     headers: {
+//         apiKey: "9508d8ae-a290-4623-b124-d1b931f231d0"
+//     }
+// })
+// .then(response => response.json())
+// .then(data => console.log(data))
+// .catch(error => consolge.error(error));
+
+
+// const particlesContainer = document.getElementById("particles");
+
+//   function createParticle(){
+
+// const particle = document.createElement("div");
+
+//       particle.classList.add("particle");
+//       particle.style.left = Math.random() * window.innerWidth + "px";
+//       particle.style.top = Math.random() * window.innerHeight + "px";
+
+// const size = Math.random() * 4 + 2;
+//     particle.style.width = size + "px";
+//     particle.style.height = size + "px";
+
+// const colors = ["#00ffff","#00ff99","#33ccff","#ffffff"];
+
+// const color = colors[Math.floor(Math.random() * colors.length)];
+
+//     particle.style.background = color;
+//     particle.style.boxShadow = `
+//         0 0 6px ${color},
+//         0 0 12px ${color},
+//         0 0 20px ${color},
+// `;
+//   }
 
 const articles = [
   {
@@ -85,3 +132,4 @@ function createCard(article) {
 }
 
 initializeArticles();
+// createParticle();
