@@ -1,13 +1,21 @@
 const menuBtn = document.getElementById("menu-btn");
 const sidebar = document.getElementById("sidebar");
 const body = document.getElementById("body");
-const particles = document.getElementById("particles");
+// const particle = document.getElementsByClassName("particle");
 /* const title = document.getElementByClass("mainTitle"); */
 const categoryclasses = {
   critical: "critical",
   medium: "medium",
   low: "low",
 };
+
+const colors = [
+ "#00ff00", // verde fósforo
+    "#00d9ff", // cian
+    "#08a000", // ámbar
+    "#f1afe8f7", // rojo
+    "#70ff11",  // blanco
+];
 
 const logBtn = document.getElementById("logBtn");
 const logDoc = document.getElementById("logDoc");
@@ -23,49 +31,105 @@ closeModal.addEventListener("click", () => {
   overlay.classList.remove("visible")
 });
 
-const apiKey = "9508d8ae-a290-4623-b124-d1b931f231d0"
-
 menuBtn.addEventListener("click", () => {
   sidebar.classList.toggle("hidden");
 });
 
-//fetch("https://services.nvd.nist.gov/rest/json/cves/2.0?resultsPerPage=5") 
-//     headers: {
-//         apiKey: "9508d8ae-a290-4623-b124-d1b931f231d0"
-//     }
-// })
-// .then(response => response.json())
-// .then(data => console.log(data))
-// .catch(error => consolge.error(error));
+const particleContainer = document.getElementById("particleContainer");
+const partCount = 50;
 
+function createParticles(){
 
-// const particlesContainer = document.getElementById("particles");
+  for(let i=0;i<partCount;i++){
 
-//   function createParticle(){
+    const particle = document.createElement("div");
+    particle.classList.add("particle");
 
-// const particle = document.createElement("div");
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
 
-//       particle.classList.add("particle");
-//       particle.style.left = Math.random() * window.innerWidth + "px";
-//       particle.style.top = Math.random() * window.innerHeight + "px";
+    const randomIndexCol = Math.floor(Math.random() *colors.length);
+    const randomCol = colors[randomIndexCol];
+    const randomScale = Math.random();
 
-// const size = Math.random() * 4 + 2;
-//     particle.style.width = size + "px";
-//     particle.style.height = size + "px";
+    if (randomScale >=.3 && randomScale <.6) {
+      particle.style.scale = 1.3;
+    } else if (randomScale >=.6) {
+      particle.style.scale = 2;
+    }
 
-// const colors = ["#00ffff","#00ff99","#33ccff","#ffffff"];
+    particle.style.left = x + "px";
+    particle.style.top = y + "px";
+    particle.style.background = randomCol;
 
-// const color = colors[Math.floor(Math.random() * colors.length)];
+    const direction = Math.random() < 0.5;
+    const duration = Math.random() * 8 + 8;
 
-//     particle.style.background = color;
-//     particle.style.boxShadow = `
-//         0 0 6px ${color},
-//         0 0 12px ${color},
-//         0 0 20px ${color},
-// `;
-//   }
+    if (direction) {
+    particle.style.animation = `moveRight ${duration}s linear infinite alternate`;} 
+    else {particle.style.animation = `moveLeft ${duration}s linear infinite alternate`;
+    }
 
-const articles = [
+    particle.style.animationDelay = `${Math.random() * -15}s`;
+
+    particleContainer.appendChild(particle);
+
+    particles.push({
+    element: particle,
+    x: x,
+    y: y,
+});
+
+  }
+}
+
+const particles = [];
+
+function animateParticles() {
+
+    particles.forEach(particle => {
+
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        particle.element.style.left = particle.x + "px";
+        particle.element.style.top = particle.y + "px";
+
+    });
+
+    requestAnimationFrame(animateParticles);
+
+}
+
+const articles = []
+
+async function getData(){
+
+  await fetch("https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",)
+  .then(response => response.json())
+  .then(async data => await normalizeData(data))
+  // dataFetch = data.vulnerabilities)
+  .catch(error => console.error(error));
+}
+
+function normalizeData(data){
+
+  const vulnerabilities = data.vulnerabilities
+  vulnerabilities.forEach((vulnerability) => {
+    articles.push(
+      { category: "critical",
+        title: vulnerability.vulnerabilityName,
+        description: vulnerability.shortDescription,
+        fecha: vulnerability.dateAdded,
+        uniqueId: vulnerability.cveID,
+        readMore: vulnerability.notes.split(";").map(x => x.trim()).find(x => x.includes("nvd.nist.gov")),
+        errorType: vulnerability.cwes,
+      }
+    )
+  })
+}
+
+const articlesMock = [
   {
     category: "critical",
     title: "New Windows Vulnerability Discovered",
@@ -89,16 +153,21 @@ const articles = [
   },
 ];
 
-function initializeArticles() {
+async function initializeArticles() {
   const articlesContainer = document.getElementById("news-container");
   articlesContainer.innerHTML = "loading news...";
+  await getData();
   if (!articles || articles.length === 0) {
+    console.log(!articles);
+    console.log(articles.length);
     articlesContainer.innerHTML = "No articles available. Come back later.";
     return;
   }
   articlesContainer.innerHTML = "";
 
-  articles.forEach((article) => {
+  const first10 = articles.slice(0,10);
+
+  first10.forEach((article) => {
     const articleElement = createCard(article);
     articlesContainer.appendChild(articleElement);
   });
@@ -129,8 +198,8 @@ function createCard(article) {
   const ctitleElement = document.createElement("div");
   ctitleElement.classList.add("ctitle");
 
-  ctitleElement.appendChild(categoryElement);
   ctitleElement.appendChild(titleElement);
+  ctitleElement.appendChild(categoryElement);
   articleElement.appendChild(ctitleElement);
   articleElement.appendChild(descriptionElement);
   articleElement.appendChild(linkElement);
@@ -138,5 +207,6 @@ function createCard(article) {
   return articleElement;
 }
 
+createParticles();
+animateParticles();
 initializeArticles();
-// createParticle();
