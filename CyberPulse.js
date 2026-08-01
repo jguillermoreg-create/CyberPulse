@@ -12,8 +12,8 @@ const categoryclasses = {
 const colors = [
  "#00ff00", // verde fósforo
     "#00d9ff", // cian
-    "#08a000", // ámbar
-    "#f1afe8f7", // rojo
+    "#00a058", // ámbar
+    "#e3f1aff7", // rojo
     "#70ff11",  // blanco
 ];
 
@@ -63,7 +63,7 @@ function createParticles(){
     particle.style.background = randomCol;
 
     const direction = Math.random() < 0.5;
-    const duration = Math.random() * 8 + 8;
+    const duration = Math.random() * 50 + 16;
 
     if (direction) {
     particle.style.animation = `moveRight ${duration}s linear infinite alternate`;} 
@@ -110,6 +110,17 @@ async function getData(){
   .then(async data => await normalizeData(data))
   // dataFetch = data.vulnerabilities)
   .catch(error => console.error(error));
+  console.log(articles);
+}
+
+async function getDataSeverity(url){
+
+  await fetch("url",)
+  .then(response => response.json())
+  .then(async data => await normalizeData(data))
+  // dataFetch = data.vulnerabilities)
+  .catch(error => console.error(error));
+  console.log(articles);
 }
 
 function normalizeData(data){
@@ -118,16 +129,42 @@ function normalizeData(data){
   vulnerabilities.forEach((vulnerability) => {
     articles.push(
       { category: "critical",
+        cveID: vulnerability.cveID,
         title: vulnerability.vulnerabilityName,
         description: vulnerability.shortDescription,
-        fecha: vulnerability.dateAdded,
+        date: vulnerability.dateAdded,
         uniqueId: vulnerability.cveID,
         readMore: vulnerability.notes.split(";").map(x => x.trim()).find(x => x.includes("nvd.nist.gov")),
         errorType: vulnerability.cwes,
-      }
+        baseScore: "N/A",
+        baseSeverity: "N/A",
+      },
     )
   })
 }
+
+// function updateSeverity(data){
+
+//   const vulnerabilities = data.vulnerabilities,
+//   vulnerabilities.forEach(vulnerability) => {
+//     articles.push(
+//       { baseScore: vulnerability.baseScore,
+//         baseSeverity: vulnerability.baseSeverity,
+//         }
+//   ))
+
+// }
+
+function createUrlSeverity(articles){
+  let cveConcat="";
+  articles.forEach((article) => cveConcat=cveConcat+article.cveID+",");
+  let cves=cveConcat.slice(0,-1);
+  console.log("https://services.nvd.nist.gov/rest/json/cves/2.0?cveIds="+cves);
+  return "https://services.nvd.nist.gov/rest/json/cves/2.0?cveIds="+cves;
+}
+
+
+
 
 const articlesMock = [
   {
@@ -166,6 +203,7 @@ async function initializeArticles() {
   articlesContainer.innerHTML = "";
 
   const first10 = articles.slice(0,10);
+  createUrlSeverity(first10);
 
   first10.forEach((article) => {
     const articleElement = createCard(article);
@@ -176,6 +214,11 @@ async function initializeArticles() {
 function createCard(article) {
   const articleElement = document.createElement("article");
   articleElement.classList.add("card");
+
+
+articleElement.addEventListener("click", () => {
+    window.open(linkElement, "_blank");})
+
 
   const categoryElement = document.createElement("span");
   categoryElement.textContent = article.category.toUpperCase();
@@ -190,17 +233,35 @@ function createCard(article) {
   const descriptionElement = document.createElement("p");
   descriptionElement.textContent = article.description;
 
+  const errorType = article.errorType;
+  // document.createElement("p");
+  // errorType.textContent = article.errorType;
+  // errorType.classList.add("cwe");
+
+  const date = article.date;
+  // date.textContent = article.date;
+  // date.classList.add("cwe");
+
   const linkElement = document.createElement("a");
-  linkElement.href = article.url;
+  linkElement.href = article.readMore;
   linkElement.textContent = "Read more";
   linkElement.target = "_blank";
 
   const ctitleElement = document.createElement("div");
   ctitleElement.classList.add("ctitle");
 
+  const subtitleElement = document.createElement("div");
+  subtitleElement.textContent = (date + "_   " + errorType);
+  subtitleElement.classList.add("csubtitle");
+
+
   ctitleElement.appendChild(titleElement);
   ctitleElement.appendChild(categoryElement);
+
   articleElement.appendChild(ctitleElement);
+  articleElement.appendChild(subtitleElement);
+
+  // articleElement.appendChild(errorType);
   articleElement.appendChild(descriptionElement);
   articleElement.appendChild(linkElement);
 

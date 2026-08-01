@@ -127,18 +127,6 @@ body::after{
     }
 }
 
-h1 {
-  font-size: 5rem;
-  font-family: "Michroma", Helvetica;
-  color: #ffffff;
-  text-shadow:
-    0 0 5px #00e5ffb2,
-    0 0 15px #00e5ffb3,
-    0 0 30px #00e5ff75;
-  animation: neon 5s infinite alternate;
-  animation: grow 0.5s immediate;
-}
-
 @keyframes neon {
   from {
     text-shadow:
@@ -220,6 +208,8 @@ input {
   --red-critical: #ff0000;
   --yellow-medium: #ffae00;
   --green-low: #42b500;
+  --title-text-color: #ffffff;
+  --highlight-text-color: #00ff44;
 }
 
 
@@ -281,6 +271,14 @@ h1.mainTitle {
   margin-top: 50px;
   font-size: 5rem;
   transition: font-size 0.3s ease;
+    font-size: 5rem;
+  color: #ffffff;
+  text-shadow:
+    0 0 5px #00e5ffb2,
+    0 0 15px #00e5ffb3,
+    0 0 30px #00e5ff75;
+  animation: neon 5s infinite alternate;
+  animation: grow 0.5s immediate;
 }
 
 .mainTitle:hover {
@@ -388,9 +386,10 @@ article a {
   position:relative;
   overflow:hidden;
   z-index: 1;
+  cursor: pointer;
 }
 
-.card::before{
+.card::before {
     content:"";
     position:absolute;
     top:0;
@@ -421,8 +420,8 @@ span.category.critical {
   padding: 10px 10px;
   border-radius: 5px;
   font-family: "Y2K Brutalism Typeface", Helvetica;
-  font-size: 0.8rem;
-  font-style: bold;
+  font-size: 1rem;
+  font-style: bolder;
   box-shadow: 0px 0px 20px 1px var(--red-critical);
 }
 
@@ -433,7 +432,7 @@ span.category.medium {
   padding: 10px 10px;
   border-radius: 5px;
   font-family: "Y2K Brutalism Typeface", Helvetica;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-style: bold;
   right: 3%;
   box-shadow: 0px 0px 20px 1px var(--yellow-medium);
@@ -446,7 +445,7 @@ span.category.low {
   padding: 10px 10px;
   border-radius: 5px;
   font-family: "Y2K Brutalism Typeface", Helvetica;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-style: bold;
   right: 3%;
   box-shadow: 0px 0px 20px 1px var(--green-low);
@@ -475,7 +474,7 @@ span.category.low {
     width: 6px;
     height: 2px;
 
-    border-radius: 50%;
+    border-radius: 10%;
 
     background: radial-gradient(
         circle,
@@ -579,10 +578,6 @@ span.category.low {
   pointer-events: auto;
 }
 
-/* .show{
-  display: flex;
-} */
-
 #logDoc{
   width: 50%;
   height: 80%;
@@ -631,4 +626,11 @@ span.category.low {
   border-radius: 50%;
   margin-right: 10px;
   vertical-align: middle;
+}
+
+.csubtitle{
+  font-style: italic;
+  font-size: .8rem;
+  padding-top: 1px;
+  color: var(--highlight-text-color)
 }
