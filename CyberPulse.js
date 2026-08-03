@@ -13,7 +13,7 @@ const colors = [
  "#00ff00", // verde fósforo
     "#00d9ff", // cian
     "#00a058", // ámbar
-    "#e3f1aff7", // rojo
+    "#dcff5ff7", // rojo
     "#70ff11",  // blanco
 ];
 

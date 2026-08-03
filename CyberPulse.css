@@ -207,7 +207,7 @@ input {
   --hover-color: #00e5ff;
   --red-critical: #ff0000;
   --orange-high: #ff6f00;
-  --yellow-medium: #e4e400;
+  --yellow-medium: #e6ad11;
   --green-low: #42b500;
   --na-grey: #808080;
   --title-text-color: #ffffff;
@@ -416,8 +416,9 @@ article a {
 }
 
 span.category {
-  width: 20%;
-  align-self: center;
+  min-width: 20%;
+  text-align: center;
+  align-self: top;
   color: #ffffff;
   padding: 10px 10px;
   border-radius: 5px;
@@ -429,27 +430,27 @@ span.category {
 
 span.category.critical {
   background-color: var(--red-critical);
-  box-shadow: 0px 0px 20px 1px var(--red-critical);
+  box-shadow: 0px 0px 20px 5px var(--red-critical);
 }
 
 span.category.high {
   background-color: var(--orange-high);
-  box-shadow: 0px 0px 20px 1px var(--orange-high);
+  box-shadow: 0px 0px 20px 5px var(--orange-high);
 }
 
 span.category.medium {
   background-color: var(--yellow-medium);
-  box-shadow: 0px 0px 20px 1px var(--yellow-medium);
+  box-shadow: 0px 0px 20px 5px var(--yellow-medium);
 }
 
 span.category.low {
   background-color: var(--green-low);
-  box-shadow: 0px 0px 20px 1px var(--green-low);
+  box-shadow: 0px 0px 20px 5px var(--green-low);
 }
 
 span.category.na {
   background-color: var(--na-grey);
-  box-shadow: 0px 0px 20px 1px var(--na-grey);
+  box-shadow: 0px 0px 20px 5px var(--na-grey);
 }
 
 .ctitle {
