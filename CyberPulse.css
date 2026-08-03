@@ -206,8 +206,10 @@ input {
   --card-background-solid: rgba(56, 149, 160, 0.626);
   --hover-color: #00e5ff;
   --red-critical: #ff0000;
-  --yellow-medium: #ffae00;
+  --orange-high: #ff6f00;
+  --yellow-medium: #e4e400;
   --green-low: #42b500;
+  --na-grey: #808080;
   --title-text-color: #ffffff;
   --highlight-text-color: #00ff44;
 }
@@ -413,42 +415,41 @@ article a {
   background-color: var(--card-background-solid);
 }
 
-span.category.critical {
+span.category {
+  width: 20%;
   align-self: center;
-  background-color: var(--red-critical);
   color: #ffffff;
   padding: 10px 10px;
   border-radius: 5px;
   font-family: "Y2K Brutalism Typeface", Helvetica;
   font-size: 1rem;
   font-style: bolder;
+}
+
+
+span.category.critical {
+  background-color: var(--red-critical);
   box-shadow: 0px 0px 20px 1px var(--red-critical);
 }
 
+span.category.high {
+  background-color: var(--orange-high);
+  box-shadow: 0px 0px 20px 1px var(--orange-high);
+}
+
 span.category.medium {
-  align-self: flex-end;
   background-color: var(--yellow-medium);
-  color: #ffffff;
-  padding: 10px 10px;
-  border-radius: 5px;
-  font-family: "Y2K Brutalism Typeface", Helvetica;
-  font-size: 1rem;
-  font-style: bold;
-  right: 3%;
   box-shadow: 0px 0px 20px 1px var(--yellow-medium);
 }
 
 span.category.low {
-  align-self: flex-end;
   background-color: var(--green-low);
-  color: #ffffff;
-  padding: 10px 10px;
-  border-radius: 5px;
-  font-family: "Y2K Brutalism Typeface", Helvetica;
-  font-size: 1rem;
-  font-style: bold;
-  right: 3%;
   box-shadow: 0px 0px 20px 1px var(--green-low);
+}
+
+span.category.na {
+  background-color: var(--na-grey);
+  box-shadow: 0px 0px 20px 1px var(--na-grey);
 }
 
 .ctitle {

@@ -101,26 +101,33 @@ function animateParticles() {
 
 }
 
-const articles = []
+let articles = []
 
 async function getData(){
+
+  await getDataArticles();
+  
+  articles = articles.slice(0,10);
+  
+  await getDataSeverity(createUrlSeverity(articles));
+
+}
+
+async function getDataArticles(){
 
   await fetch("https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",)
   .then(response => response.json())
   .then(async data => await normalizeData(data))
-  // dataFetch = data.vulnerabilities)
   .catch(error => console.error(error));
   console.log(articles);
 }
 
 async function getDataSeverity(url){
 
-  await fetch("url",)
+  await fetch(url,)
   .then(response => response.json())
-  .then(async data => await normalizeData(data))
-  // dataFetch = data.vulnerabilities)
+  .then(async data => await updateSeverity(data))
   .catch(error => console.error(error));
-  console.log(articles);
 }
 
 function normalizeData(data){
@@ -143,17 +150,26 @@ function normalizeData(data){
   })
 }
 
-// function updateSeverity(data){
-
-//   const vulnerabilities = data.vulnerabilities,
-//   vulnerabilities.forEach(vulnerability) => {
-//     articles.push(
-//       { baseScore: vulnerability.baseScore,
-//         baseSeverity: vulnerability.baseSeverity,
-//         }
-//   ))
-
-// }
+function updateSeverity(data){
+  console.log("updating severity");
+ console.log(articles);
+  const vulnerabilities = data.vulnerabilities;
+  console.log(vulnerabilities);
+  vulnerabilities.forEach(
+    (vulnerability) => {
+      const cveid = vulnerability?.cve?.id;
+      const basescore = vulnerability?.cve?.metrics?.cvssMetricV31?.[0]?.cvssData?.baseScore;
+      const baseseverity = vulnerability?.cve?.metrics?.cvssMetricV31?.[0]?.cvssData?.baseSeverity;
+  
+      const article = articles.find((article) => article.cveID === cveid);
+      if (article) {
+        article.baseScore = basescore ?? "N/A";
+        article.baseSeverity = baseseverity ?? "N/A";
+      }
+    }
+  )
+  console.log(articles);
+}
 
 function createUrlSeverity(articles){
   let cveConcat="";
@@ -162,9 +178,6 @@ function createUrlSeverity(articles){
   console.log("https://services.nvd.nist.gov/rest/json/cves/2.0?cveIds="+cves);
   return "https://services.nvd.nist.gov/rest/json/cves/2.0?cveIds="+cves;
 }
-
-
-
 
 const articlesMock = [
   {
@@ -202,10 +215,7 @@ async function initializeArticles() {
   }
   articlesContainer.innerHTML = "";
 
-  const first10 = articles.slice(0,10);
-  createUrlSeverity(first10);
-
-  first10.forEach((article) => {
+  articles.forEach((article) => {
     const articleElement = createCard(article);
     articlesContainer.appendChild(articleElement);
   });
@@ -221,11 +231,15 @@ articleElement.addEventListener("click", () => {
 
 
   const categoryElement = document.createElement("span");
-  categoryElement.textContent = article.category.toUpperCase();
-  categoryElement.classList.add(
-    "category",
-    categoryclasses[article.category.toLowerCase()],
-  );
+  categoryElement.textContent = article.baseScore + " - " + article.baseSeverity.toUpperCase();
+  
+  const severity = article.baseSeverity?.toLowerCase();
+
+    if(["critical","medium","low","high"].includes(severity)) {
+      categoryElement.classList.add("category", severity);
+} else {categoryElement.classList.add("category", "na");
+
+}
 
   const titleElement = document.createElement("h3");
   titleElement.textContent = article.title;
@@ -253,7 +267,6 @@ articleElement.addEventListener("click", () => {
   const subtitleElement = document.createElement("div");
   subtitleElement.textContent = (date + "_   " + errorType);
   subtitleElement.classList.add("csubtitle");
-
 
   ctitleElement.appendChild(titleElement);
   ctitleElement.appendChild(categoryElement);
