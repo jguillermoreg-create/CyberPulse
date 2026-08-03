@@ -101,21 +101,22 @@ function animateParticles() {
 
 }
 
-let articles = []
-let articlesShowed = []
-let countArticles = []
-
+let articles = [];
+let articlesShowed = [];
+let countArticles = 0;
+let loadingArticles = false;
+let infiniteScrollObserver = null;
 
 async function getData(){
   await getDataArticles();
-  countArticles = 10;
-  articlesShowed = [
-    ...articlesShowed,
-    ...articles.slice(countArticles - 10, countArticles)
-  ]
-  
-  await getDataSeverity(createUrlSeverity(articlesShowed));
 
+  const initialCount = Math.min(10, articles.length);
+  countArticles = initialCount;
+  articlesShowed = articles.slice(0, initialCount);
+
+  if (articlesShowed.length > 0) {
+    await getDataSeverity(createUrlSeverity(articlesShowed));
+  }
 }
 
 async function getDataArticles(){
@@ -127,22 +128,32 @@ async function getDataArticles(){
   // console.log(articles);
 }
 
-  async function loadMoreArticles() {
-  countArticles += 10;
-  articlesShowed = [
-    ...articlesShowed,
-    ...articles.slice(countArticles - 10, countArticles),
-  ];
+async function loadMoreArticles() {
+  if (loadingArticles || !articles.length || countArticles >= articles.length) return;
 
-  await getDataSeverity(createUrlSeverity(articlesShowed));
+  loadingArticles = true;
 
-  const articlesContainer = document.getElementById("news-container");
-  articlesContainer.innerHTML = "";
+  try {
+    const nextBatch = articles.slice(countArticles, countArticles + 10);
 
-  articlesShowed.forEach((article) => {
-    const articleElement = createCard(article);
-    articlesContainer.appendChild(articleElement);
-  });
+    if (nextBatch.length === 0) return;
+
+    articlesShowed = [...articlesShowed, ...nextBatch];
+    countArticles += nextBatch.length;
+
+    await getDataSeverity(createUrlSeverity(articlesShowed));
+
+    const articlesContainer = document.getElementById("news-container");
+    if (!articlesContainer) return;
+
+    articlesContainer.innerHTML = "";
+    articlesShowed.forEach((article) => {
+      const articleElement = createCard(article);
+      articlesContainer.appendChild(articleElement);
+    });
+  } finally {
+    loadingArticles = false;
+  }
 }
 
 async function getDataSeverity(url){
@@ -158,8 +169,7 @@ function normalizeData(data){
   const vulnerabilities = data.vulnerabilities
   vulnerabilities.forEach((vulnerability) => {
     articles.push(
-      { category: "critical",
-        cveID: vulnerability.cveID,
+      { cveID: vulnerability.cveID,
         title: vulnerability.vulnerabilityName,
         description: vulnerability.shortDescription,
         date: vulnerability.dateAdded,
@@ -175,7 +185,7 @@ function normalizeData(data){
 
 function updateSeverity(data){
   console.log("updating severity");
- console.log(articles);
+//  console.log(articles);
   const vulnerabilities = data.vulnerabilities;
   // console.log(vulnerabilities);
   vulnerabilities.forEach(
@@ -200,6 +210,30 @@ function createUrlSeverity(articles){
   let cves=cveConcat.slice(0,-1);
   console.log("https://services.nvd.nist.gov/rest/json/cves/2.0?cveIds="+cves);
   return "https://services.nvd.nist.gov/rest/json/cves/2.0?cveIds="+cves;
+}
+
+function setupInfiniteScroll() {
+  const sentinel = document.getElementById("sentinel");
+  if (!sentinel) return;
+
+  if (infiniteScrollObserver) {
+    infiniteScrollObserver.disconnect();
+  }
+
+  infiniteScrollObserver = new IntersectionObserver((entries) => {
+    const [entry] = entries;
+
+    if (!entry.isIntersecting) return;
+    if (loadingArticles || !articles.length || countArticles >= articles.length) return;
+
+    loadMoreArticles();
+  }, {
+    root: null,
+    threshold: 0.1,
+    rootMargin: "200px 0px",
+  });
+
+  infiniteScrollObserver.observe(sentinel);
 }
 
 const articlesMock = [
@@ -230,18 +264,19 @@ async function initializeArticles() {
   const articlesContainer = document.getElementById("news-container");
   articlesContainer.innerHTML = "loading news...";
   await getData();
+
   if (!articlesShowed || articlesShowed.length === 0) {
-    console.log(!articlesShowed);
-    console.log(articlesShowed.length);
     articlesContainer.innerHTML = "No articles available. Come back later.";
     return;
   }
-  articlesContainer.innerHTML = "";
 
+  articlesContainer.innerHTML = "";
   articlesShowed.forEach((article) => {
     const articleElement = createCard(article);
     articlesContainer.appendChild(articleElement);
   });
+
+  setupInfiniteScroll();
 }
 
 function createCard(article) {
@@ -263,7 +298,6 @@ articleElement.addEventListener("click", () => {
 } else {categoryElement.classList.add("category", "na");
 
 }
-
   const titleElement = document.createElement("h3");
   titleElement.textContent = article.title;
 

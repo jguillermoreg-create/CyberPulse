@@ -25,40 +25,42 @@
         <p class="pageDesc"> Stay informed about the latest cyber threats with CyberPulse, your real-time cyber threat tracker. Our platform provides up-to-the-minute updates on emerging cyber threats, helping you stay one step ahead in the ever-evolving landscape of cybersecurity. With CyberPulse, you can monitor and analyze cyber threats as they unfold, ensuring that you are always prepared to defend against potential attacks. Whether you're a cybersecurity professional or simply interested in staying informed, CyberPulse is your go-to source for real-time cyber threat intelligence. </p> 
         </div>
         <div class="dashboard">
-        <aside id="sidebar">
-            <button id="menu-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
-                </svg>
+            <aside id="sidebar">
+                <button id="menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
+                    </svg>
               <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
               </svg> -->
-            </button>
-            <nav>
-                <ul id="indice">
-                    <li>
-                        <a href="#">Dashboard</a></li>
-                    <li>
-                        <a href="#">Malware</a></li>
-                    <li>
-                        <a href="#">Ransomware</a></li>
-                    <li>
-                        <a href="#">Data Breaches</a></li>
-                    <li>
-                        <a href="#">Bookmarks</a></li>
-                    <li>
-                        <a href="#">Featured Threat</a></li>
-                    <li>
-                        <a href="#" id="logBtn">Log</a> </li>
-                    <li> 
-                        <input type="text" placeholder="Search threats..."></li>
-                </ul>
-            </nav>
-            <p class="discFooter"> "This product uses data from the NVD API but is not endorsed or certified by the NVD." </p>
-        </aside>
-              <h2>Latest News</h2>
+                </button>
+                <nav>
+                    <ul id="indice">
+                        <li>
+                            <a href="#">Dashboard</a></li>
+                        <li>
+                            <a href="#">Malware</a></li>
+                        <li>
+                            <a href="#">Ransomware</a></li>
+                        <li>
+                            <a href="#">Data Breaches</a></li>
+                        <li>
+                            <a href="#">Bookmarks</a></li>
+                        <li>
+                            <a href="#">Featured Threat</a></li>
+                        <li>
+                            <a href="#" id="logBtn">Log</a> </li>
+                        <li> 
+                            <input type="text" placeholder="Search threats..."></li>
+                    </ul>
+                </nav>
+                <p class="discFooter"> "This product uses data from the NVD API but is not endorsed or certified by the NVD." </p>
+            </aside>
+              
+            <h2>Latest News</h2>
 
-                <div id="news-container">
+            <div id="news-container">
+
                     <!-- JavaScript insertará aquí las noticias -->
                     <article class="card">
                     <div class="ctitle">
@@ -85,8 +87,10 @@
                     <p> Microsoft released information regarding a newly discovered vulnerability affecting Windows 11 users.</p>
                     <a href="#">Read More →</a>
                     </article>
-                </div></div>
-            </section>
+            </div>
+            
+            <div id="sentinel"></div>
+        </div>
 
             <!-- Modal-->
         <div id="overlay"> 
