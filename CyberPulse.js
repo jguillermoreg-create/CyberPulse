@@ -102,14 +102,19 @@ function animateParticles() {
 }
 
 let articles = []
+let articlesShowed = []
+let countArticles = []
+
 
 async function getData(){
-
   await getDataArticles();
+  countArticles = 10;
+  articlesShowed = [
+    ...articlesShowed,
+    ...articles.slice(countArticles - 10, countArticles)
+  ]
   
-  articles = articles.slice(0,10);
-  
-  await getDataSeverity(createUrlSeverity(articles));
+  await getDataSeverity(createUrlSeverity(articlesShowed));
 
 }
 
@@ -119,7 +124,25 @@ async function getDataArticles(){
   .then(response => response.json())
   .then(async data => await normalizeData(data))
   .catch(error => console.error(error));
-  console.log(articles);
+  // console.log(articles);
+}
+
+  async function loadMoreArticles() {
+  countArticles += 10;
+  articlesShowed = [
+    ...articlesShowed,
+    ...articles.slice(countArticles - 10, countArticles),
+  ];
+
+  await getDataSeverity(createUrlSeverity(articlesShowed));
+
+  const articlesContainer = document.getElementById("news-container");
+  articlesContainer.innerHTML = "";
+
+  articlesShowed.forEach((article) => {
+    const articleElement = createCard(article);
+    articlesContainer.appendChild(articleElement);
+  });
 }
 
 async function getDataSeverity(url){
@@ -154,7 +177,7 @@ function updateSeverity(data){
   console.log("updating severity");
  console.log(articles);
   const vulnerabilities = data.vulnerabilities;
-  console.log(vulnerabilities);
+  // console.log(vulnerabilities);
   vulnerabilities.forEach(
     (vulnerability) => {
       const cveid = vulnerability?.cve?.id;
@@ -168,7 +191,7 @@ function updateSeverity(data){
       }
     }
   )
-  console.log(articles);
+  // console.log(articles);
 }
 
 function createUrlSeverity(articles){
@@ -207,15 +230,15 @@ async function initializeArticles() {
   const articlesContainer = document.getElementById("news-container");
   articlesContainer.innerHTML = "loading news...";
   await getData();
-  if (!articles || articles.length === 0) {
-    console.log(!articles);
-    console.log(articles.length);
+  if (!articlesShowed || articlesShowed.length === 0) {
+    console.log(!articlesShowed);
+    console.log(articlesShowed.length);
     articlesContainer.innerHTML = "No articles available. Come back later.";
     return;
   }
   articlesContainer.innerHTML = "";
 
-  articles.forEach((article) => {
+  articlesShowed.forEach((article) => {
     const articleElement = createCard(article);
     articlesContainer.appendChild(articleElement);
   });
